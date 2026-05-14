@@ -1,0 +1,75 @@
+# A JGEX Dataset (CSV only)
+
+This repository contains **one file**: a CSV spreadsheet of Euclidean geometry problems paired with natural-language text and JGEX formalizations.
+
+- **File:** `dataset.csv`
+- **Format:** one row = one JGEX instance (a problem encoding that can be executed by a JGEX-compatible solver)
+
+## What is in the CSV?
+
+Each row pairs:
+
+1. the **original natural-language** problem statement (in LaTeX),
+2. a **JGEX-oriented natural-language rewrite** (in LaTeX) that makes construction steps explicit,
+3. the **JGEX code** for the construction and goal,
+4. metadata intended to support filtering, benchmarking, and analysis.
+
+## Column schema
+
+The CSV contains the following columns (names match the paper, Section 3.2):
+
+- `problem_id`  
+  Integer identifier for the underlying geometry problem. May repeat across rows if a single original problem is represented by multiple JGEX instances (e.g., multi-goal encodings).
+
+- `original_NL_problem_statement`  
+  Original problem statement in LaTeX (verbatim from the source).
+
+- `statement_source`  
+  Source citation (e.g., contest/year/problem number, or textbook/exercise reference).
+
+- `NL-JGEX_problem_statement`  
+  LaTeX natural-language rewrite aligned to JGEX construction order/vocabulary; makes implicit assumptions explicit.
+
+- `JGEX_problem_statement`  
+  The executable JGEX instance: construction sequence (semicolon-separated), optional helper constructions after `|`, and one or more goals after `?`.
+
+- `problem_runs_on_Newclid_3_0_1`  
+  Execution flag indicating whether the instance runs under **Newclid v3.0.1** (e.g., `yes`/`no`).
+
+- `NL_reference_proof`  
+  Reference proof identifier/link when available; otherwise `N/A`.
+
+- `NL_reference_proof_source`  
+  Source for the reference proof (URL or citation) when available; otherwise `N/A`.
+
+- `numerical_concept`  
+  Binary annotation indicating whether the instance uses explicit numerical content (e.g., fixed angles/ratios/lengths) versus purely qualitative relations.
+
+- `NL_construction_in_statement`  
+  Counts of primitives needed to state the configuration (e.g., `point(7), segment(6), circle(1)`). These counts refer to objects needed to *formulate* the statement.
+
+- `NL_construction_for_proof`  
+  Counts of auxiliary primitives introduced to enable a standard proof strategy or to express the goal with available vocabulary; otherwise `N/A`.
+
+- `final_answer`  
+  A machine-matchable final answer token when applicable; typically `N/A` for theorem-style problems.
+
+- `comment`  
+  Free-form notes (e.g., goal reformulations, helper constructions, multi-goal encoding details, caveats).
+
+## Notes on interpretation
+
+- **Multi-goal / multi-row representation:** If the original mathematical conclusion is encoded as multiple JGEX goals, the same `problem_id` may appear in multiple rows with different `JGEX_problem_statement` goals.
+- **Executability is versioned:** The `problem_runs_on_Newclid_3_0_1` field is tied to Newclid **v3.0.1**. Behavior may change across solver versions.
+- **LaTeX fields:** Several text fields contain LaTeX (e.g., backslashes, braces). When loading the CSV, ensure your tooling preserves strings without unwanted escaping.
+
+## Minimal usage example
+
+You can inspect the CSV with standard tools (Python/pandas shown below):
+
+```python
+import pandas as pd
+
+df = pd.read_csv("dataset.csv")
+print(df.columns)
+print(df.head(3)[["problem_id", "statement_source", "JGEX_problem_statement"]])
