@@ -2,34 +2,6 @@
 
 A curated collection of 137 Euclidean geometry problems with released JGEX formalizations and run-status annotations under pinned Newclid v3.0.1.
 
-## Repository structure
-
-```
-jgex_dataset/
-├── data/
-│   ├── dataset.csv                     # 137 geometry problems (main dataset)
-│   ├── predicate_support_matrix.csv    # support status for all 33 documented predicates
-│   ├── construction_coverage.csv       # construction-pattern coverage table
-│   └── examples_20.py                  # 20 in-context examples used by the LLM pipeline
-├── evaluation/
-│   ├── generate_predicate_matrix.py    # generates predicate_support_matrix.csv
-│   ├── compute_construction_coverage.py
-│   ├── validate_dataset.py             # runs each instance under pinned Newclid
-│   └── evaluate.py                     # computes pass@1 and agreement metrics
-├── pipeline/
-│   ├── pipeline.py                     # NL→JGEX propose-validate loop
-│   ├── rerun_truncated.py              # truncation mitigation probe
-│   └── reference_card.py              # predicate/constructor reference card injected into prompts
-├── docs/
-│   ├── jgex_tutorial.md               # JGEX syntax tutorial (Appendix A)
-│   ├── walkthrough_examples.md        # worked problems (Appendix B)
-│   └── predicate_reference.md         # human-readable predicate reference
-├── requirements.txt
-├── pinned_version.txt                  # Newclid v3.0.1
-└── README.md
-```
-
----
 
 ## Dataset
 
@@ -60,11 +32,6 @@ Each row pairs:
 | `final_answer` | Machine-matchable answer token when applicable; typically `N/A` for theorem-style problems. |
 | `comment` | Free-form notes on goal reformulations, helper constructions, multi-goal encodings, or caveats. |
 
-### Notes on interpretation
-
-- **Multi-goal encoding:** the same `problem_id` may appear in multiple rows with different goals when a single mathematical conclusion requires multiple JGEX instances.
-- **Executability is versioned:** `problem_runs_on_Newclid_3_0_1` is tied to Newclid v3.0.1 specifically. See `pinned_version.txt`.
-- **LaTeX fields:** several columns contain raw LaTeX. Make sure your CSV parser preserves backslashes and braces without unwanted escaping.
 
 ### Quickstart
 
