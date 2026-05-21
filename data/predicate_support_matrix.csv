@@ -1,0 +1,22 @@
+predicate,yuclid_status,newclid_only_status,failure_mode,short_error,jgex_used
+diff,FAIL,OK,Y2_YUCLID_FAILED,Application Error: Incorrect line a b c = triangle a b c ? diff a b; diff a c; diff b c,a b c = triangle a b c ? diff a b; diff a c; diff b c
+midp,FAIL,FAIL,E_UNKNOWN,KeyError: '1/2',a = free a; b = free b; c = free c; e = midpoint e a b; f = midpoint f a c ? para e f b c
+coll,FAIL,OK,Y2_YUCLID_FAILED,Application Error: Incorrect line a = free a; b = free b; c = on_pline0 c a b a ? coll a b c,a = free a; b = free b; c = on_pline0 c a b a ? coll a b c
+ncoll,FAIL,OK,Y2_YUCLID_FAILED,Application Error: Incorrect line a b = segment a b; c = free c ? ncoll a b c,a b = segment a b; c = free c ? ncoll a b c
+perp,FAIL,OK,Y2_YUCLID_FAILED,Application Error: Incorrect line a b = segment a b; c = on_tline c a a b ? perp a b a c,a b = segment a b; c = on_tline c a a b ? perp a b a c
+nperp,FAIL,OK,Y2_YUCLID_FAILED,Application Error: Incorrect line a b = segment a b; c d = segment c d ? nperp a b c d,a b = segment a b; c d = segment c d ? nperp a b c d
+para,FAIL,OK,Y2_YUCLID_FAILED,Application Error: Incorrect line a b c = triangle a b c; d = on_pline d c a b ? para a b c d,a b c = triangle a b c; d = on_pline d c a b ? para a b c d
+npara,FAIL,OK,Y2_YUCLID_FAILED,Application Error: Incorrect line a b = segment a b; c d = segment c d ? npara a b c d,a b = segment a b; c d = segment c d ? npara a b c d
+circle,FAIL,OK,Y2_YUCLID_FAILED,Application Error: Incorrect line o a = segment o a; b = eqdistance b o o a; c = eqdistance c o o b ? circle o a b c,o a = segment o a; b = eqdistance b o o a; c = eqdistance c o o b ? circle o a b c
+cyclic,FAIL,FAIL,N2_RUNTIME_BUG,TypeError: cannot unpack non-iterable Symbol object,a b c = triangle a b c; o = circle o a b c; d = on_circle d o a ? cyclic a b c d
+aconst,FAIL,FAIL,N2_RUNTIME_BUG,TypeError: cannot unpack non-iterable Symbol object,"a b = segment a b; c = on_circle c a b, on_circle c b a ? aconst a b a c 1/3"
+acompute,FAIL,FAIL,P1_AR_LIMITATION,"ValueError: Cannot justify predicate ∠(AB,BC) = 2pi/3 through AR",a = free a; b = lconst b a 4; c = eq_triangle c a b ? acompute b a b c; acompute a b b c
+obtuse_angle,FAIL,OK,Y2_YUCLID_FAILED,Application Error: Incorrect line a c = segment a c; b = midpoint b a c ? obtuse_angle a b c,a c = segment a c; b = midpoint b a c ? obtuse_angle a b c
+eqangle,FAIL,OK,Y2_YUCLID_FAILED,Application Error: Incorrect line a = free a; b = free b; p = free p; q = on_circum q a b p ? eqangle p a p b q a q b,a = free a; b = free b; p = free p; q = on_circum q a b p ? eqangle p a p b q a q b
+lconst,FAIL,OK,Y2_YUCLID_FAILED,Application Error: Incorrect line a = free a; b = lconst b a 2 ? lconst a b 2,a = free a; b = lconst b a 2 ? lconst a b 2
+lcompute,FAIL,FAIL,P1_AR_LIMITATION,ValueError: Cannot justify predicate AB = 5/1 through AR,a = free a; b = lconst b a 5 ? lcompute a b
+l2const,FAIL,FAIL,E_UNKNOWN,ValidationError: 1 validation error for PredicateConstruction,a = free a; b = lconst b a 2 ? l2const a b 4.0
+cong,FAIL,FAIL,N2_RUNTIME_BUG,TypeError: cannot unpack non-iterable Symbol object,"a = free a; b = free b; c = free c; p = on_circum p a b c; r = on_circum r a b c; q = on_circum q a b c, on_aline q r p b c a ? cong a b p q"
+rconst,FAIL,FAIL,N2_RUNTIME_BUG,TypeError: cannot unpack non-iterable Symbol object,a b = segment a b; m = midpoint m a b ? rconst m a a b 1/2
+lequation,FAIL,FAIL,N1_NOT_IMPLEMENTED_LENGTH_EQUATION,NotImplementedError: LengthEquationPredicate is not implemented,c a b = between c a b ? lequation 1/1 a c 1/1 c b -1/1 a b 0/1
+aequation,FAIL,FAIL,N1_NOT_IMPLEMENTED_ANGLE_EQUATION,NotImplementedError: AngleEquationPredicate is not implemented,a b c = triangle a b c; o = circle o a b c ? aequation 1/1 a b b c 1/1 a c a o 90o
